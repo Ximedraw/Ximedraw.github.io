@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inicio de mi Página Web</title>
+
+    <!-- Importar la fuente "Varela Round" desde Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: 'Varela Round', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center; /* Centra el contenido horizontalmente */
+            align-items: center; /* Centra el contenido verticalmente */
+            height: 100vh; /* Altura del viewport */
+            text-align: center; /* Centra el texto */
+            background-color: #d8b5f5; /* Color de fondo */
+        }
+
+        /* Contenedor principal */
+        .container {
+            max-width: 800px; /* Máximo ancho del contenedor */
+            padding: 20px; /* Espaciado interno */
+            background-color: white; /* Fondo blanco */
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra */
+            border-radius: 10px; /* Bordes redondeados */
+        }
+
+        /* Estilo del título principal */
+        h1 {
+            font-size: 2.5em; /* Tamaño de fuente del título */
+            color: #333; /* Color del título */
+            margin-bottom: 20px; /* Margen inferior */
+        }
+
+        /* Estilo de la imagen */
+        .header-image {
+            max-width: 80%; /* Limita el ancho de la imagen al 80% del contenedor */
+            max-height: 1500px; /* Limita la altura máxima de la imagen */
+            height: auto; /* Mantiene la proporción */
+            margin-bottom: 20px; /* Margen inferior */
+            border-radius: 20px; /* Bordes redondeados */
+        }
+
+        /* Menú de navegación */
+        nav ul {
+            list-style: none; /* Quita el estilo de lista */
+            padding: 0; /* Quita el padding */
+        }
+
+        nav ul li {
+            display: inline-block; /* Muestra los elementos en línea */
+            margin: 0 15px; /* Margen entre elementos */
+        }
+
+        nav ul li a {
+            text-decoration: none; /* Quita el subrayado */
+            color: #333; /* Color del texto */
+            font-weight: bold; /* Negrita */
+            font-size: 2em; /* Tamaño de fuente */
+            transition: color 0.3s; /* Transición de color */
+        }
+
+        nav ul li a:hover {
+            color: #b256fa; /* Color al pasar el ratón */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Contenedor centrado -->
+    <div class="container">
+        <!-- Título de la página -->
+        <h1>Merch Store</h1>
+
+        <!-- Imagen debajo del título -->
+        <img src="MS2.png" alt="ms" class="header-image">
+
+        <!-- Menú de navegación -->
+        <nav>
+            <ul>
+                <li><a href="inicio.html" target="_blank">Productos</a></li>
+                <li><a href="acerca-de.html" target="_blank">Acerca de</a></li>
+                <li><a href="servicios.html" target="_blank">Comisiones</a></li>
+                <li><a href="contacto.html" target="_blank">Contacto</a></li>
+            </ul>
+        </nav>
+    </div>
+
+</body>
+</html>
+
