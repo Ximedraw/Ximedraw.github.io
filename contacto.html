@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto</title>
+    <style>
+        body {
+            font-family: 'Varela Round', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f9f3fc;
+            color: #333;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: auto;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            color: #6a1b9a;
+            margin-bottom: 30px;
+            font-weight: bold;
+        }
+
+        .subtitle {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+            color: #555;
+        }
+
+        .back-btn {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #6a1b9a;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1em;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .back-btn:hover {
+            background-color: #4a148c;
+        }
+
+        .social-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .social-card {
+            background: #f3e5f5;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .social-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .social-card img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid #6a1b9a;
+            margin-bottom: 10px;
+        }
+
+        .social-card a {
+            text-decoration: none;
+            color: #6a1b9a;
+            font-size: 1.2em;
+            font-weight: bold;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .social-card a:hover {
+            color: #4a148c;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>¡Contáctame!</h1>
+        <p class="subtitle">Encuéntrame en cualquiera de mis redes sociales y no dudes en escribirme. 💌</p>
+
+        <div class="social-container">
+            <!-- Instagram -->
+            <div class="social-card">
+                <img src="assets/instagram.jpeg" alt="Instagram">
+                <a href="https://www.instagram.com/xime_draw18/profilecard/?igsh=MTVjcXV5b3ljYXc2bw==" target="_blank">xime_draw18</a>
+            </div>
+
+            <!-- TikTok -->
+            <div class="social-card">
+                <img src="assets/tiktok.jpeg" alt="TikTok">
+                <a href="https://www.tiktok.com/@xime_draw18?is_from_webapp=1&sender_device=pc" target="_blank">ximena_draw18</a>
+            </div>
+
+            <!-- Facebook -->
+            <div class="social-card">
+                <img src="assets/facebook.jpeg" alt="Facebook">
+                <a href="https://www.facebook.com/share/81krzFpqdnegX9Gr/?mibextid=qi2Omg" target="_blank">Xime Arreola</a>
+            </div>
+
+            <!-- X -->
+            <div class="social-card">
+                <img src="assets/twitter.jpeg" alt="X (Twitter)">
+                <a href="https://x.com/ximeow0?t=E0VVn1duujZOnFac8_iMvQ&s=08" target="_blank">Xime_draw18</a>
+            </div>
+        </div>
+        <a href="index.html" class="back-btn">Volver al Inicio</a>
+    </div>
+</body>
+</html>

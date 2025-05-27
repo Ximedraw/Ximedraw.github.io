@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Detalles del Producto</title>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Varela Round', sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #d8b5f5;
+      text-align: center;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+      font-size: 2.5em;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    .product-image {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .details {
+      text-align: left;
+    }
+    .details p {
+      font-size: 1.2em;
+      color: #555;
+    }
+    .sizes {
+      margin: 20px 0;
+    }
+    .sizes button {
+      margin: 5px;
+      padding: 10px 15px;
+      background-color: #b256fa;
+      color: white;
+      border-radius: 5px;
+      border: none;
+      font-size: 0.9em;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    .sizes button.selected {
+      background-color: #5a1292;
+    }
+    .sizes button:hover {
+      background-color: #8b28d6;
+    }
+    .cart-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #28a745;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .cart-btn:hover {
+      background-color: #218838;
+    }
+    .back-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #b256fa;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      cursor: pointer;
+    }
+    .back-btn:hover {
+      background-color: #6719a3;
+    }
+    .warning {
+      color: red;
+      font-weight: bold;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1 id="productName">Producto</h1>
+    <img id="productImage" class="product-image" src="" alt="Producto">
+    <div class="details">
+      <p id="productPrice">Precio: $0.00</p>
+      <div class="sizes" id="sizeOptions"></div>
+      <button class="cart-btn" onclick="addToCart()">Agregar al Carrito</button>
+      <p id="warningMessage" class="warning" style="display: none;">
+        Debes <a href="index.html">iniciar sesión o registrarte</a> para agregar productos al carrito o ver el carrito.
+      </p>
+    </div>
+    <a href="catalogo.html" class="back-btn">Regresar al Menú de Productos</a>
+  </div>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const product = urlParams.get("producto");
+
+    const productData = {
+      camiseta1: { name: "Camiseta 1", price: 20, image: "camiseta1.png", sizes: ["S", "M", "L", "XL"] },
+      camiseta2: { name: "Camiseta 2", price: 22, image: "camiseta2.png", sizes: ["S", "M", "L", "XL"] },
+      camiseta3: { name: "Camiseta 3", price: 25, image: "camiseta3.png", sizes: ["S", "M", "L", "XL"] },
+      taza1: { name: "Taza 1", price: 10, image: "taza1.png", sizes: [] },
+      taza2: { name: "Taza 2", price: 12, image: "taza2.png", sizes: [] },
+      taza3: { name: "Taza 3", price: 15, image: "taza3.png", sizes: [] },
+      libreta1: { name: "Libreta 1", price: 8, image: "libreta1.png", sizes: ["A5", "A6", "B4"] },
+      libreta2: { name: "Libreta 2", price: 9, image: "libreta2.png", sizes: ["A5", "A6", "B4"] },
+      libreta3: { name: "Libreta 3", price: 10, image: "libreta3.png", sizes: ["A5", "A6", "B4"] },
+      llavero1: { name: "Llavero 1", price: 5, image: "llavero1.png", sizes: ["Pequeño", "Mediano", "Grande"] },
+      llavero2: { name: "Llavero 2", price: 6, image: "llavero2.png", sizes: ["Pequeño", "Mediano", "Grande"] },
+      llavero3: { name: "Llavero 3", price: 7, image: "llavero3.png", sizes: ["Pequeño", "Mediano", "Grande"] },
+    };
+
+    const productInfo = productData[product];
+    const sesionIniciada = localStorage.getItem("loggedIn") === "true";
+
+    document.getElementById("productName").innerText = productInfo.name;
+    document.getElementById("productPrice").innerText = `Precio: $${productInfo.price.toFixed(2)}`;
+    document.getElementById("productImage").src = `assets/${productInfo.image}`; // Asegúrate que las imágenes están en assets/
+
+    const sizeOptions = document.getElementById("sizeOptions");
+    let selectedSize = "";
+
+    if (productInfo.sizes.length > 0) {
+      productInfo.sizes.forEach(size => {
+        const button = document.createElement("button");
+        button.innerText = size;
+        button.onclick = () => {
+          document.querySelectorAll(".sizes button").forEach(btn => btn.classList.remove("selected"));
+          button.classList.add("selected");
+          selectedSize = size;
+        };
+        sizeOptions.appendChild(button);
+      });
+    }
+
+    if (!sesionIniciada) {
+      document.querySelector(".cart-btn").disabled = true;
+      document.querySelector(".cart-btn").style.opacity = "0.5";
+      document.getElementById("warningMessage").style.display = "block";
+    }
+
+    function addToCart() {
+      if (!sesionIniciada) {
+        alert("Debes iniciar sesión para usar el carrito.");
+        return;
+      }
+
+      if (productInfo.sizes.length > 0 && !selectedSize) {
+        alert("Por favor selecciona un tamaño.");
+        return;
+      }
+
+      const productToAdd = {
+        name: productInfo.name,
+        price: productInfo.price,
+        size: selectedSize || null,
+        quantity: 1,
+      };
+
+      let cart = JSON.parse(localStorage.getItem("cart")) || [];
+      const existingProduct = cart.find(item => item.name === productToAdd.name && item.size === productToAdd.size);
+
+      if (existingProduct) {
+        existingProduct.quantity++;
+      } else {
+        cart.push(productToAdd);
+      }
+
+      localStorage.setItem("cart", JSON.stringify(cart));
+      alert(`Producto "${productToAdd.name}" agregado al carrito.`);
+    }
+  </script>
+</body>
+</html>

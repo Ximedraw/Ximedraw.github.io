@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Comisiones</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Varela Round', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #d8b5f5;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        input, textarea, select, button {
+            padding: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+        }
+
+        button {
+            background-color: #b256fa;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background-color: #5a1292;
+        }
+
+        .back-btn {
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            display: inline-block;
+            margin-top: 20px;
+        }
+
+        .back-btn:hover {
+            background-color: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Formulario de Comisiones</h1>
+
+        <!-- Formulario modificado con Formspree -->
+        <form action="https://formspree.io/f/xpwznael" method="POST">
+            <label for="name">Nombre del Cliente:</label>
+            <input type="text" id="name" name="name" required>
+
+            <label for="email">Correo Electrónico:</label>
+            <input type="email" id="email" name="email" required>
+
+            <label for="description">Descripción del Dibujo:</label>
+            <textarea id="description" name="description" rows="4" required></textarea>
+
+            <label for="deadline">Fecha Estimada de Entrega:</label>
+            <input type="date" id="deadline" name="deadline" required>
+
+            <label for="commissionType">Tipo de Comisión:</label>
+            <select id="commissionType" name="commissionType" required>
+                <option value="digital">Dibujo Digital</option>
+                <option value="traditional">Dibujo Tradicional</option>
+                <option value="other">Otro</option>
+            </select>
+
+            <label for="file">Subir Archivos (opcional):</label>
+            <input type="file" id="file" name="file">
+
+            <button type="submit">Enviar Comisión</button>
+        </form>
+
+        <a href="index.html" class="back-btn">Regresar al Inicio</a>
+    </div>
+
+</body>
+</html>
+

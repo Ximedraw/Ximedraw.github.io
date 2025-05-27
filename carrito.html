@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito de Compras</title>
+    <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Varela Round', sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #d8b5f5;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            font-size: 2.5em;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #f4f4f4;
+        }
+
+        .total {
+            font-size: 1.5em;
+            margin-top: 20px;
+        }
+
+        form {
+            margin-top: 20px;
+            text-align: left;
+            background: #f9f9f9;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        form label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        form input, form textarea, form button {
+            width: calc(100% - 20px);
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        form button {
+            background-color: #b256fa;
+            color: white;
+            cursor: pointer;
+        }
+
+        form button:hover {
+            background-color: #5a1292;
+        }
+
+        .paypal-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 20px;
+        }
+
+        .delete-btn {
+            padding: 5px 10px;
+            background-color: #f1807c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+
+        .delete-btn:hover {
+            background-color: #e2615d;
+        }
+
+        .back-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #b256fa;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .back-btn:hover {
+            background-color: #5a1292;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Carrito de Compras</h1>
+
+        <table>
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    <th>Cantidad</th>
+                    <th>Total</th>
+                    <th>Acción</th>
+                </tr>
+            </thead>
+            <tbody id="cartTable">
+                <!-- Aquí se agregarán los productos del carrito -->
+            </tbody>
+        </table>
+
+        <div class="total" id="totalPrice">
+            <!-- Total del carrito -->
+        </div>
+
+        <!-- Formulario de datos de envío -->
+        <form action="https://formspree.io/f/xovqzebe" method="POST">
+            <h2>Datos de Envío</h2>
+            <label for="nombre">Nombre completo:</label>
+            <input type="text" id="nombre" name="nombre" required>
+
+            <label for="direccion">Dirección de envío:</label>
+            <textarea id="direccion" name="direccion" rows="3" required></textarea>
+
+            <label for="ciudad">Ciudad:</label>
+            <input type="text" id="ciudad" name="ciudad" required>
+
+            <label for="codigo_postal">Código postal:</label>
+            <input type="text" id="codigo_postal" name="codigo_postal" required>
+
+            <label for="telefono">Teléfono:</label>
+            <input type="text" id="telefono" name="telefono" required>
+
+            <button type="submit">Enviar datos de envío</button>
+        </form>
+
+        <!-- Contenedor del botón de PayPal -->
+        <div class="paypal-container">
+            <div id="paypal-button-container"></div>
+        </div>
+
+        <!-- Botón para regresar al inicio -->
+        <a href="index.html" class="back-btn">Volver al Inicio</a>
+    </div>
+
+    <script src="https://www.paypal.com/sdk/js?client-id=AazYompo2q4cDjcz74uqXr2UDQ90YcSYueX-PFFoVJJJA7Ik5dv1vQNkepbIMR9ld4ZzFcTyIiznYJe6&currency=USD"></script>
+    <script>
+        // Cargar el carrito desde el almacenamiento local
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+
+        // Función para actualizar el carrito
+        function updateCart() {
+            const cartTable = document.getElementById("cartTable");
+            const totalPrice = document.getElementById("totalPrice");
+            cartTable.innerHTML = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                const row = document.createElement("tr");
+                row.innerHTML = `
+                    <td>${item.name}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                    <td>${item.quantity}</td>
+                    <td>$${(item.price * item.quantity).toFixed(2)}</td>
+                    <td><button class="delete-btn" onclick="removeFromCart(${index})">Eliminar</button></td>
+                `;
+                cartTable.appendChild(row);
+                total += item.price * item.quantity;
+            });
+
+            totalPrice.textContent = `Total: $${total.toFixed(2)}`;
+            
+            // Actualiza el botón de PayPal
+            document.getElementById('paypal-button-container').innerHTML = '';
+            initializePayPalButton(total);
+        }
+
+        // Función para eliminar un producto del carrito
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            localStorage.setItem("cart", JSON.stringify(cart));
+            updateCart();
+        }
+
+        // Inicializar el botón de PayPal
+        function initializePayPalButton(total) {
+            paypal.Buttons({
+                createOrder: function(data, actions) {
+                    return actions.order.create({
+                        purchase_units: [{
+                            amount: {
+                                value: total.toFixed(2)
+                            }
+                        }]
+                    });
+                },
+                onApprove: function(data, actions) {
+                    return actions.order.capture().then(function(details) {
+                        alert(`Pago completado por ${details.payer.name.given_name}`);
+                    });
+                }
+            }).render('#paypal-button-container');
+        }
+
+        // Inicializar el carrito
+        updateCart();
+    </script>
+</body>
+</html>
