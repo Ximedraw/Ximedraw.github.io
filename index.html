@@ -22,10 +22,10 @@
         }
 
         .container {
-            max-width: 900px;
+            max-width: 760px;
             padding: 20px;
             background-color: #ffffff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 9px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
         }
 
@@ -36,8 +36,7 @@
         }
 
         .header-image {
-            max-width: 70%;
-            max-height: 1000px;
+            max-width: 50%;
             height: auto;
             margin-bottom: 10px;
             border-radius: 10px;
@@ -59,10 +58,11 @@
             font-weight: bold;
             font-size: 2em;
             transition: color 0.3s;
+            cursor: pointer;
         }
 
         nav ul li a:hover {
-            color: #5ECCD4;
+            color: #83ADF0;
         }
 
         /* Botones en la esquina superior derecha */
@@ -86,14 +86,52 @@
         }
 
         .top-right-buttons button:hover {
-            background-color: #5ECCD4;
+            background-color: #83DCDE;
+        }
+
+        /* Estilo del contenedor de usuario */
+        .user-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        #usuarioNombre {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #0A5E7A;
+        }
+
+        .logout-btn {
+            padding: 8px 12px;
+            font-size: 0.9em;
+            font-weight: bold;
+            border: none;
+            border-radius: 5px;
+            background-color: #f1807c;
+            color: white;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .logout-btn:hover {
+            background-color: #e2615d;
         }
     </style>
 </head>
 <body>
 
-    <!-- Botones en la esquina superior derecha -->
-    <div class="top-right-buttons">
+    <!-- Contenedor del usuario (visible cuando hay sesión) -->
+    <div class="user-container" id="userContainer" style="display:none;">
+        <span id="usuarioNombre"></span>
+        <button class="logout-btn" onclick="cerrarSesion()">Cerrar Sesión</button>
+    </div>
+
+    <!-- Botones de inicio/registro -->
+    <div class="top-right-buttons" id="botonesInicio">
         <button onclick="window.location.href='login.html'">Iniciar sesión</button>
         <button onclick="window.location.href='registro.html'">Regístrate</button>
     </div>
@@ -104,21 +142,51 @@
         <img src="assets/MS2.png" alt="Imagen principal" class="header-image">
         <nav>
             <ul>
-                <li><a href="catalogo.html" target="_blank">Productos</a></li>
-                <li><a href="acerca-de.html" target="_blank">Acerca de</a></li>
-                <li><a href="servicios.html" target="_blank">Comisiones</a></li>
-                <li><a href="contacto.html" target="_blank">Contacto</a></li>
+                <li><a onclick="verificarAcceso('catalogo.html')">Productos</a></li>
+                <li><a onclick="verificarAcceso('acerca-de.html')">Acerca de</a></li>
+                <li><a onclick="verificarAcceso('servicios.html')">Comisiones</a></li>
+                <li><a onclick="verificarAcceso('contacto.html')">Contacto</a></li>
             </ul>
         </nav>
     </div>
 
+    <script>
+        // Verificar si hay un usuario guardado en localStorage
+        const usuario = localStorage.getItem("usuario");
+        const loggedIn = localStorage.getItem("loggedIn") === "true";
+
+        if (loggedIn && usuario) {
+            // Mostrar el nombre del usuario y el botón de cerrar sesión
+            document.getElementById("usuarioNombre").innerText = "Bienvenido, " + usuario;
+            document.getElementById("userContainer").style.display = "flex";
+
+            // Ocultar los botones de inicio y registro
+            document.getElementById("botonesInicio").style.display = "none";
+        }
+
+        // Función para verificar acceso antes de navegar
+        function verificarAcceso(pagina) {
+            if (!loggedIn) {
+                // Si no ha iniciado sesión, mostrar alerta y redirigir al login
+                alert("Debes iniciar sesión o registrarte para acceder a esta sección.");
+                window.location.href = "login.html";
+            } else {
+                // Si ya inició sesión, permitir el acceso
+                window.open(pagina, '_blank');
+            }
+        }
+
+        // Función para cerrar sesión
+        function cerrarSesion() {
+            localStorage.removeItem("loggedIn");
+            localStorage.removeItem("usuario");
+            localStorage.removeItem("cart"); // Limpiar el carrito también
+            window.location.reload(); // Recargar la página
+        }
+    </script>
+
 </body>
 </html>
-
-
-
-
-
 
 
 
