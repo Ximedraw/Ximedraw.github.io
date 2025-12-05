@@ -107,7 +107,8 @@
 
             if (user) {
                 // Si el usuario es válido, se guarda en localStorage que está autenticado
-                localStorage.setItem("loggedIn", true);
+                localStorage.setItem("loggedIn", "true");
+                localStorage.setItem("usuario", user.nombre); 
                 window.location.href = "index.html"; // Redirigir a la página principal
             } else {
                 // Mostrar mensaje de error si no es válido
